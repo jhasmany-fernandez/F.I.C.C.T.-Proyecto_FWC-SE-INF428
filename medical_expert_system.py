@@ -48,13 +48,13 @@ def if_not_matched(disease):
 		disease_details = get_details(id_disease)
 		treatments = get_treatments(id_disease)
 		print("")
-		print("The most probable disease that you have is %s\n" %(id_disease))
-		print("A short description of the disease is given below :\n")
+		print("La enfermedad más probable que tiene es %s\n" %(id_disease))
+		print("Una breve descripción de la enfermedad se da a continuación :\n")
 		print(disease_details+"\n")
-		print("The common medications and procedures suggested by other real doctors are: \n")
+		print("Los medicamentos y procedimientos comunes sugeridos por otros médicos reales son: \n")
 		print(treatments+"\n")
 
-# @my_decorator is just a way of saying just_some_function = my_decorator(just_some_function)
+# @my_decorator es solo una forma de decir just_some_function = my_decorator(just_some_function)
 #def identify_disease(headache, back_pain, chest_pain, cough, fainting, sore_throat, fatigue, restlessness,low_body_temp ,fever,sunken_eyes):
 class Greetings(KnowledgeEngine):
 	@DefFacts()
@@ -178,10 +178,10 @@ class Greetings(KnowledgeEngine):
 		disease_details = get_details(id_disease)
 		treatments = get_treatments(id_disease)
 		print("")
-		print("The most probable disease that you have is %s\n" %(id_disease))
-		print("A short description of the disease is given below :\n")
+		print("La enfermedad más probable que tiene es %s\n" %(id_disease))
+		print("Una breve descripción de la enfermedad se da a continuación :\n")
 		print(disease_details+"\n")
-		print("The common medications and procedures suggested by other real doctors are: \n")
+		print("Los medicamentos y procedimientos comunes sugeridos por otros médicos reales son: \n")
 		print(treatments+"\n")
 
 	@Rule(Fact(action='find_disease'),
@@ -220,8 +220,8 @@ if __name__ == "__main__":
 	preprocess()
 	engine = Greetings()
 	while(1):
-		engine.reset()  # Prepare the engine for the execution.
-		engine.run()  # Run it!
+		engine.reset()  # Preparar el motor para la ejecución.
+		engine.run()  # ¡Ejecutarlo!
 		print("Would you like to diagnose some other symptoms?")
 		if input() == "no":
 			exit()
