@@ -1,10 +1,10 @@
 from experta import *
 
-diseases_list = []
-diseases_symptoms = []
-symptom_map = {}
+diseases_list = [] #lista de enfermedades
+diseases_symptoms = [] #Enfermedades sintomas
+symptom_map = {} #Sintomas Mapa
 d_desc_map = {}
-d_treatment_map = {}
+d_treatment_map = {} #Tratamiento
 
 def preprocess():
 	global diseases_list,diseases_symptoms,symptom_map,d_desc_map,d_treatment_map

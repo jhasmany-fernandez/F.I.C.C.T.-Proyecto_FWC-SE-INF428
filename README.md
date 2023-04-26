@@ -44,4 +44,8 @@ python main.py
 ## Licencia
 [MIT](https://choosealicense.com/licenses/mit/)
 
+## Experta:
+Experta es una biblioteca de Python para construir sistemas expertos fuertemente inspirada en CLIPS¹. Un sistema experto es un programa de computadora que utiliza el conocimiento y la inferencia para resolver problemas que normalmente requerirían el conocimiento y la experiencia de un experto humano². En resumen, Experta es una herramienta que permite a los desarrolladores crear sistemas expertos en Python.
+
+
 
