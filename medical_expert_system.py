@@ -1,14 +1,17 @@
+# LIBRERIAS IMPORTAR
 from experta import *
 
+# VARIABLES GLOBALES
 diseases_list = [] #lista de enfermedades
 diseases_symptoms = [] #Enfermedades sintomas
 symptom_map = {} #Sintomas Mapa
 d_desc_map = {}
 d_treatment_map = {} #Tratamiento
 
+#
 def preprocess():
 	global diseases_list,diseases_symptoms,symptom_map,d_desc_map,d_treatment_map
-	diseases = open("diseases.txt")
+	diseases = open("diseases.txt") #habrir archivo enfernmedades.txt
 	diseases_t = diseases.read()
 	diseases_list = diseases_t.split("\n")
 	diseases.close()
@@ -33,7 +36,7 @@ def identify_disease(*arguments):
 	symptom_list = []
 	for symptom in arguments:
 		symptom_list.append(symptom)
-	# Handle key error
+	# Manejar error clave
 	return symptom_map[str(symptom_list)]
 
 def get_details(disease):
@@ -66,6 +69,9 @@ class Greetings(KnowledgeEngine):
 		print("")
 		yield Fact(action="find_disease")
 
+
+## --------------------------------------------------------------------------------------------------------------------
+# SYMPTOM (SINTOMAS) validar los sintomas.
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(headache=W())),salience = 1)
 	def symptom_0(self):
@@ -119,6 +125,10 @@ class Greetings(KnowledgeEngine):
 	def symptom_12(self):
 		self.declare(Fact(blurred_vision=input("blurred_vision: ")))
 
+
+# -----------------------------------------------------------------------------------------------------------------------
+# DISEASE (ENFERMEDADES).
+
 	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
 	def disease_0(self):
 		self.declare(Fact(disease="Jaundice"))
@@ -171,6 +181,7 @@ class Greetings(KnowledgeEngine):
 	def disease_12(self):
 		self.declare(Fact(disease="Hypothermia"))
 
+# ----------------------------------------------------------------------------------------------------------------------
 	@Rule(Fact(action='find_disease'),Fact(disease=MATCH.disease),salience = -998)
 	def disease(self, disease):
 		print("")
@@ -216,13 +227,15 @@ class Greetings(KnowledgeEngine):
 		if_not_matched(max_disease)
 
 
+# ----------------------------------------------------------------------------------------------------------------------
+# EJECUTAR (CONSOLA)
 if __name__ == "__main__":
 	preprocess()
 	engine = Greetings()
 	while(1):
 		engine.reset()  # Preparar el motor para la ejecución.
 		engine.run()  # ¡Ejecutarlo!
-		print("Would you like to diagnose some other symptoms?")
+		print("¿Le gustaría diagnosticar algunos otros síntomas?")
 		if input() == "no":
 			exit()
 		#print(engine.facts)
