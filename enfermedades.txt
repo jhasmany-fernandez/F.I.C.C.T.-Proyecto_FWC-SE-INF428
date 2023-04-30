@@ -1,0 +1,13 @@
+Ictericia
+Alzheimer
+Artritis
+Tuberculosis
+Asma
+Sinusitis
+Epilepsia
+Cardiopatia
+Diabetes
+Glaucoma
+Hipertiroidismo
+Golpe de calor
+Hipotermia

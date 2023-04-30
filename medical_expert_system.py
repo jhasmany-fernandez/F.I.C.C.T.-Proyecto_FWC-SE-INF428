@@ -11,22 +11,22 @@ d_treatment_map = {} #Tratamiento
 #
 def preprocess():
 	global diseases_list,diseases_symptoms,symptom_map,d_desc_map,d_treatment_map
-	diseases = open("diseases.txt") #habrir archivo enfernmedades.txt
+	diseases = open("enfermedades.txt") #habrir archivo enfernmedades.txt
 	diseases_t = diseases.read()
 	diseases_list = diseases_t.split("\n")
 	diseases.close()
 	for disease in diseases_list:
-		disease_s_file = open("Disease symptoms/" + disease + ".txt")
+		disease_s_file = open("Síntomas de la enfermedad/" + disease + ".txt")
 		disease_s_data = disease_s_file.read()
 		s_list = disease_s_data.split("\n")
 		diseases_symptoms.append(s_list)
 		symptom_map[str(s_list)] = disease
 		disease_s_file.close()
-		disease_s_file = open("Disease descriptions/" + disease + ".txt")
+		disease_s_file = open("Descripciones de enfermedades/" + disease + ".txt")
 		disease_s_data = disease_s_file.read()
 		d_desc_map[disease] = disease_s_data
 		disease_s_file.close()
-		disease_s_file = open("Disease treatments/" + disease + ".txt")
+		disease_s_file = open("Tratamientos de enfermedades/" + disease + ".txt")
 		disease_s_data = disease_s_file.read()
 		d_treatment_map[disease] = disease_s_data
 		disease_s_file.close()
@@ -40,6 +40,7 @@ def identify_disease(*arguments):
 	return symptom_map[str(symptom_list)]
 
 def get_details(disease):
+
 	return d_desc_map[disease]
 
 def get_treatments(disease):
@@ -63,123 +64,122 @@ class Greetings(KnowledgeEngine):
 	@DefFacts()
 	def _initial_action(self):
 		print("")
-		print("¡Hola! Soy el Dr. Yar, estoy aquí para ayudarlo a mejorar su salud.")
+		print("¡Hola! Soy el Dr. Jhasmany, estoy aquí para ayudarlo a mejorar su salud.")
 		print("Para eso tendrás que responder algunas preguntas sobre tus condiciones.")
 		print("Sientes alguno de los siguientes síntomas:")
 		print("")
 		yield Fact(action="find_disease")
-
 
 ## --------------------------------------------------------------------------------------------------------------------
 # SYMPTOM (SINTOMAS) validar los sintomas.
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(headache=W())),salience = 1)
 	def symptom_0(self):
-		self.declare(Fact(headache=input("headache: ")))
+		self.declare(Fact(headache=input("dolor de cabeza: ")))
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(back_pain=W())),salience = 1)
 	def symptom_1(self):
-		self.declare(Fact(back_pain=input("back pain: ")))
+		self.declare(Fact(back_pain=input("dolor de espalda: ")))
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(chest_pain=W())),salience = 1)
 	def symptom_2(self):
-		self.declare(Fact(chest_pain=input("chest pain: ")))
+		self.declare(Fact(chest_pain=input("dolor en el pecho: ")))
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(cough=W())),salience = 1)
 	def symptom_3(self):
-		self.declare(Fact(cough=input("cough: ")))
+		self.declare(Fact(cough=input("tos: ")))
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(fainting=W())),salience = 1)
 	def symptom_4(self):
-		self.declare(Fact(fainting=input("fainting: ")))
+		self.declare(Fact(fainting=input("desmayo: ")))
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(fatigue=W())),salience = 1)
 	def symptom_5(self):
-		self.declare(Fact(fatigue=input("fatigue: ")))
+		self.declare(Fact(fatigue=input("fatiga: ")))
 	 
 	@Rule(Fact(action='find_disease'), NOT(Fact(sunken_eyes=W())),salience = 1)
 	def symptom_6(self):
-		self.declare(Fact(sunken_eyes=input("sunken eyes: ")))
+		self.declare(Fact(sunken_eyes=input("ojos hundidos: ")))
 	
 	@Rule(Fact(action='find_disease'), NOT(Fact(low_body_temp=W())),salience = 1)
 	def symptom_7(self):
-		self.declare(Fact(low_body_temp=input("low body temperature: ")))
+		self.declare(Fact(low_body_temp=input("baja temperatura corporal: ")))
 	
 	@Rule(Fact(action='find_disease'), NOT(Fact(restlessness=W())),salience = 1)
 	def symptom_8(self):
-		self.declare(Fact(restlessness=input("restlessness: ")))
+		self.declare(Fact(restlessness=input("inquietud: ")))
 	
 	@Rule(Fact(action='find_disease'), NOT(Fact(sore_throat=W())),salience = 1)
 	def symptom_9(self):
-		self.declare(Fact(sore_throat=input("sore throat: ")))
+		self.declare(Fact(sore_throat=input("dolor de garganta: ")))
 	
 	@Rule(Fact(action='find_disease'), NOT(Fact(fever=W())),salience = 1)
 	def symptom_10(self):
-		self.declare(Fact(fever=input("fever: ")))
+		self.declare(Fact(fever=input("fiebre: ")))
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(nausea=W())),salience = 1)
 	def symptom_11(self):
-		self.declare(Fact(nausea=input("Nausea: ")))
+		self.declare(Fact(nausea=input("Nauseas: ")))
 
 	@Rule(Fact(action='find_disease'), NOT(Fact(blurred_vision=W())),salience = 1)
 	def symptom_12(self):
-		self.declare(Fact(blurred_vision=input("blurred_vision: ")))
+		self.declare(Fact(blurred_vision=input("vision borrosa: ")))
 
 
 # -----------------------------------------------------------------------------------------------------------------------
 # DISEASE (ENFERMEDADES).
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="si"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="si"),Fact(sunken_eyes="no"),Fact(nausea="si"),Fact(blurred_vision="no"))
 	def disease_0(self):
-		self.declare(Fact(disease="Jaundice"))
+		self.declare(Fact(disease="Ictericia"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="yes"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="si"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
 	def disease_1(self):
-		self.declare(Fact(disease="Alzheimers"))
+		self.declare(Fact(disease="Alzheimer"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="yes"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="si"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="si"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
 	def disease_2(self):
-		self.declare(Fact(disease="Arthritis"))
+		self.declare(Fact(disease="Artritis"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="si"),Fact(cough="si"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="si"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
 	def disease_3(self):
 		self.declare(Fact(disease="Tuberculosis"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="yes"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="si"),Fact(cough="si"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="si"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
 	def disease_4(self):
-		self.declare(Fact(disease="Asthma"))
+		self.declare(Fact(disease="Asma"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="yes"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="si"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="si"),Fact(fainting="no"),Fact(sore_throat="si"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="si"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
 	def disease_5(self):
 		self.declare(Fact(disease="Sinusitis"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="si"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
 	def disease_6(self):
-		self.declare(Fact(disease="Epilepsy"))
+		self.declare(Fact(disease="Epilepsia"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="si"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="si"),Fact(blurred_vision="no"))
 	def disease_7(self):
-		self.declare(Fact(disease="Heart Disease"))
+		self.declare(Fact(disease="Cardiopatia"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="yes"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="si"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="si"),Fact(blurred_vision="si"))
 	def disease_8(self):
 		self.declare(Fact(disease="Diabetes"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="yes"))
+	@Rule(Fact(action='find_disease'),Fact(headache="si"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="si"),Fact(blurred_vision="si"))
 	def disease_9(self):
 		self.declare(Fact(disease="Glaucoma"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="si"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="si"),Fact(blurred_vision="no"))
 	def disease_10(self):
-		self.declare(Fact(disease="Hyperthyroidism"))
+		self.declare(Fact(disease="Hipertiroidismo"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="si"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="si"),Fact(sunken_eyes="no"),Fact(nausea="si"),Fact(blurred_vision="no"))
 	def disease_11(self):
-		self.declare(Fact(disease="Heat Stroke"))
+		self.declare(Fact(disease="Golpe de calor"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="yes"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="yes"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="si"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="si"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
 	def disease_12(self):
-		self.declare(Fact(disease="Hypothermia"))
+		self.declare(Fact(disease="Hipotermia"))
 
 # ----------------------------------------------------------------------------------------------------------------------
 	@Rule(Fact(action='find_disease'),Fact(disease=MATCH.disease),salience = -998)
@@ -211,7 +211,7 @@ class Greetings(KnowledgeEngine):
 		  Fact(blurred_vision=MATCH.blurred_vision),NOT(Fact(disease=MATCH.disease)),salience = -999)
 
 	def not_matched(self,headache, back_pain, chest_pain, cough, fainting, sore_throat, fatigue, restlessness,low_body_temp ,fever ,sunken_eyes ,nausea ,blurred_vision):
-		print("\nDid not find any disease that matches your exact symptoms")
+		print("\nNo encontró ninguna enfermedad que coincida con sus síntomas exactos")
 		lis = [headache, back_pain, chest_pain, cough, fainting, sore_throat, fatigue, restlessness,low_body_temp ,fever ,sunken_eyes ,nausea ,blurred_vision]
 		max_count = 0
 		max_disease = ""
@@ -219,7 +219,7 @@ class Greetings(KnowledgeEngine):
 			count = 0
 			temp_list = eval(key)
 			for j in range(0,len(lis)):
-				if(temp_list[j] == lis[j] and lis[j] == "yes"):
+				if(temp_list[j] == lis[j] and lis[j] == "si"):
 					count = count + 1
 			if count > max_count:
 				max_count = count
