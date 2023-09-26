@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/Algoritmo_FWC/nbproject/private/
+/FWC/nbproject/private/
+/F_FWC/nbproject/private/
